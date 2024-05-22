@@ -1,28 +1,8 @@
 import styled from "styled-components";
-
-const H1 = styled.h1`
-  font-size: 30px;
-  font-weight: 600;
-  background-color: yellow;
-`;
-
-const Button = styled.button`
-  font-size: 1.4rem;
-  padding: 1.2rem 1.6rem;
-  font-weight: 500;
-  border: none;
-  border-radius: 10px;
-  background-color: purple;
-  color: white;
-  margin: 20px;
-  cursor: pointer;
-`;
-
-const Input = styled.input`
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 0.8rem 1.2rem;
-`;
+import GlobalStyles from "./styles/GlobalStyles";
+import Button from "./ui/Button";
+import Input from "./ui/Input";
+import Heading from "./ui/Heading";
 
 const StyledApp = styled.div`
   background-color: orangered;
@@ -31,14 +11,21 @@ const StyledApp = styled.div`
 
 function App() {
   return (
-    /*To style the whole app, we can style a div and name it as StyledApp */
-    <StyledApp>
-      <H1>The Wild Oasis</H1>
-      {/*Styled components will take the usual tag attributes as primitive tags would such as onClick */}
-      <Button onClick={() => alert("Check in")}> Check In</Button>
-      <Button onClick={() => alert("Check out")}> Check Out</Button>
-      <Input type="number" placeholder="Number of guests" />
-    </StyledApp>
+    <>
+      {/*The GlobalStyles component doesnt take any children to style them, instead, it targets it's siblings. So How can we apply its styles to our app then? We just have to place our app and the GlobalStyles under a common parent (which makes them siblings) therefore the styles will be applied. In this case, we placed them both under a fragment*/}
+      <GlobalStyles />
+      {/*To style the whole app, we can style a div and name it as StyledApp */}
+      <StyledApp>
+        <Heading as="h1">The Wild Oasis</Heading>
+        <Heading as="h2">Check in and out</Heading>
+        {/*Styled components will take the usual tag attributes as primitive tags would such as onClick */}
+        <Button onClick={() => alert("Check in")}> Check In</Button>
+        <Button onClick={() => alert("Check out")}> Check Out</Button>
+        <Heading as="h3">Form</Heading>
+        <Input type="number" placeholder="Number of guests" />
+        <Input type="number" placeholder="Number of guests" />
+      </StyledApp>
+    </>
   );
 }
 
