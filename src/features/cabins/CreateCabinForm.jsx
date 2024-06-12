@@ -37,7 +37,9 @@ function CreateCabinForm() {
 
   function onSubmit(data) {
     /*We could've called the createCabin function here to add the newCabin to our db, however, we want to also let know react-query that some data was mutated so it refetches the new data from our db "cabins" table on success of the newCabin creation.*/
-    mutate(data);
+    mutate({ ...data, image: data.image[0] });
+
+    console.log(data);
   }
 
   function onError(errors) {
@@ -114,8 +116,15 @@ function CreateCabinForm() {
         />
       </FormRow>
 
-      <FormRow label="Cabin photo">
-        <FileInput id="image" disabled={isCreating} accept="image/*" />
+      <FormRow label="Cabin photo" error={errors?.image?.message}>
+        <FileInput
+          id="image"
+          disabled={isCreating}
+          accept="image/*"
+          {...register("image", {
+            required: "This field is required",
+          })}
+        />
       </FormRow>
 
       <FormRow>
